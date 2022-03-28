@@ -1,0 +1,19 @@
+@import './reset';
+@import './variables';
+// @import './poll';
+// @import './media';
+
+body {
+  font-family: $primary-font-family;
+  background-color: $background-color;
+  overflow-x: hidden;
+}
+
+.main-container {
+  height: 90vh;
+  width: 100%;
+}
+
+.holy {
+  font-size: 12px;
+}

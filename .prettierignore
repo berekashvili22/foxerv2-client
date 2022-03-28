@@ -1,0 +1,8 @@
+node_modules
+package.json
+.next
+out
+html
+.husky
+public
+scss
