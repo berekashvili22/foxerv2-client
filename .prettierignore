@@ -5,4 +5,5 @@ out
 html
 .husky
 public
-scss
+styles
+README.md
