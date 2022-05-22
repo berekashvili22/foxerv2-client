@@ -1,17 +1,21 @@
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { removeUser, setUser } from '../store/features/user/userSlice';
+import { useAuthRedirect } from '../common/hooks/useAuthRedirect';
+import { removeUser } from '../store/features/user/userSlice';
 
 const Me = () => {
-    const { user, isLoading } = useSelector((store) => store.user);
-    console.log('🚀 ~ file: me.js ~ line 8 ~ Me ~ user', user);
+    const { user } = useSelector((store) => store.user);
+    const { redirectToAuth } = useAuthRedirect();
+
+    if (!user) {
+        redirectToAuth();
+    }
 
     const dispatch = useDispatch();
     const [serverUser, setServerUser] = React.useState(null);
 
     React.useEffect(() => {
-        console.log('hi');
         handleServerUser();
     }, [user]);
 

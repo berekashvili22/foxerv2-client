@@ -13,17 +13,36 @@ import { messages } from '../../../common/utils/messages';
 import { sendErrorLog } from '../../../common/lib/errorLogger';
 import { useLocalStorageWithTTL } from '../../../common/hooks/useLocalStorageWithTTL';
 
-export const useLogin = () => {
+export const useRegister = () => {
     const dispatch = useDispatch();
     const router = useRouter();
 
     const { getLocalStorageItemWithTTL } = useLocalStorageWithTTL();
 
-    const initialFormData = { email: '', password: '' };
-    const initialErrorsState = { email: '', password: '' };
+    const initialFormData = {
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+        password2: '',
+        agreedOnTerms: false,
+        type: 'user'
+    };
+
+    const initialErrorsState = {
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+        password2: '',
+        agreedOnTerms: false,
+        type: 'user'
+    };
 
     const [formInput, setFormInput] = React.useState(initialFormData);
     const [errors, setErrors] = React.useState(initialErrorsState);
+
+    console.log('🚀 ~ file: useRegister.js ~ line 43 ~ useRegister ~ formInput', formInput);
 
     const [loading, setLoading] = React.useState(false);
 
@@ -35,7 +54,6 @@ export const useLogin = () => {
     function resetForm() {
         setFormInput(initialFormData);
         setErrors(initialErrorsState);
-        // setLoading(false);
     }
 
     /**
@@ -44,14 +62,16 @@ export const useLogin = () => {
      */
     function handleInputChange(e) {
         // Get field name and value
-        const { name, value } = e.target;
+        const { name, value, checked } = e.target;
 
         // If current input has error , validation it on every change
         if (errors[name]) validateFormLive(name, value);
 
+        value = name !== 'agreedOnTerms' ? value.trim() : checked;
+
         // Update formInput with new value
         setFormInput((prevInput) => {
-            return { ...prevInput, [name]: value.trim() };
+            return { ...prevInput, [name]: value };
         });
     }
 
@@ -73,9 +93,39 @@ export const useLogin = () => {
                     delete validationErrors.email;
                 }
                 break;
+            case 'firstName':
+                if (!firstName.length) {
+                    validationErrors.firstName = messages.empty_field;
+                } else {
+                    delete validationErrors.email;
+                }
+                break;
+            case 'lastName':
+                if (!lastName.length) {
+                    validationErrors.lastName = messages.empty_field;
+                } else {
+                    delete validationErrors.email;
+                }
+                break;
             case 'password':
                 if (!value.length) {
                     validationErrors.password = messages.empty_field;
+                } else {
+                    delete validationErrors.password;
+                }
+                break;
+            case 'password2':
+                if (!password2.length) {
+                    validationErrors.password2 = messages.empty_field;
+                } else if (password2 !== password) {
+                    validationErrors.password2 = messages.pw_match;
+                } else {
+                    delete validationErrors.password;
+                }
+                break;
+            case 'agreedOnTerms':
+                if (!agreedOnTerms) {
+                    validationErrors.agreedOnTerms = messages.terms_not_agreed;
                 } else {
                     delete validationErrors.password;
                 }
@@ -171,7 +221,7 @@ export const useLogin = () => {
         let validationErrors = {};
 
         try {
-            const { email, password } = formData;
+            const { email, firstName, lastName, password, password2, agreedOnTerms } = formData;
 
             if (!email.length) {
                 validationErrors.email = messages.empty_field;
@@ -179,8 +229,28 @@ export const useLogin = () => {
                 validationErrors.email = messages.invalid_email;
             }
 
+            if (!firstName.length) {
+                validationErrors.firstName = messages.empty_field;
+            }
+
+            if (!lastName.length) {
+                validationErrors.lastName = messages.empty_field;
+            }
+
             if (!password.length) {
                 validationErrors.password = messages.empty_field;
+            } else if (password.length < 6) {
+                validationErrors.password = messages.pw_length;
+            }
+
+            if (!password2.length) {
+                validationErrors.password2 = messages.empty_field;
+            } else if (password2 !== password) {
+                validationErrors.password2 = messages.pw_match;
+            }
+
+            if (!agreedOnTerms) {
+                validationErrors.agreedOnTerms = messages.terms_not_agreed;
             }
 
             if (Object.keys(validationErrors).length) {
@@ -190,7 +260,7 @@ export const useLogin = () => {
                 setErrors(initialErrorsState);
             }
         } catch (e) {
-            sendErrorLog('LoginView.jsx, isInputValid: ' + e);
+            sendErrorLog('UseRegister.js, isInputValid: ' + e);
             return false;
         }
 

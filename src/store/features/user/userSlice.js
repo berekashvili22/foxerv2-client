@@ -27,7 +27,6 @@ const userSlice = createSlice({
             state.isLoading = false;
         },
         removeUser: (state) => {
-            console.log('🚀 ~ file: userSlice.js ~ line 31 ~ state', state);
             state.isLoading = true;
             state.user = null;
             state.isLoading = false;

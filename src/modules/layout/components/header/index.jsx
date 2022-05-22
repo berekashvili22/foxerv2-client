@@ -1,23 +1,28 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { clientConfig } from '../../../../../client-config';
 
 const Header = () => {
     const router = useRouter();
 
     function redirectToAuth() {
-        router.push('/auth');
+        router?.push('/auth');
+    }
+
+    function renderHeader() {
+        return clientConfig.headerLessRoutes.indexOf(router?.route) < 0;
     }
 
     return (
-        <>
-            {router?.asPath !== '/auth' ? (
+        <React.Fragment>
+            {renderHeader() && (
                 <header className="header">
                     <section className="header_top-menu_wrapper">
                         <div className="header_top-menu"></div>
                     </section>
                     <section className="header_main-menu">
                         {/* <div className="header_main-menu"> */}
-                        <div className="logo_wrapper" onClick={() => Router.push('/')}>
+                        <div className="logo_wrapper" onClick={() => router.push('/')}>
                             <h2>
                                 <span>Fox</span>er
                             </h2>
@@ -53,10 +58,8 @@ const Header = () => {
                         {/* </div> */}
                     </section>
                 </header>
-            ) : (
-                ''
             )}
-        </>
+        </React.Fragment>
     );
 };
 
