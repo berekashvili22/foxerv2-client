@@ -1,19 +1,22 @@
 @import './reset';
 @import './variables';
+@import './header';
+@import './sliders';
+@import './auth';
 // @import './poll';
 // @import './media';
 
 body {
-  font-family: $primary-font-family;
-  background-color: $background-color;
-  overflow-x: hidden;
+    font-family: 'BPG Algeti', sans-serif;
+    // background-color: $elegant-white;
+    overflow-x: hidden;
 }
 
 .main-container {
-  height: 90vh;
-  width: 100%;
+    height: 90vh;
+    width: 100%;
 }
 
 .holy {
-  font-size: 12px;
+    font-size: 12px;
 }
