@@ -15,11 +15,11 @@
 
         @include medium {
             width: 700px;
-        };
+        }
 
         @include tablet {
             width: 90vw;
-        };
+        }
 
         &__title {
             font-size: size(giant);
@@ -59,28 +59,32 @@
             color: $muted;
             font-size: size(s);
         }
-    };
+    }
 
     @keyframes color-change {
-        0% { color: $red; }
-        50% { color: $blue; }
-        100% { color: $green; }
-    };
+        0% {
+            color: $red;
+        }
+        50% {
+            color: $blue;
+        }
+        100% {
+            color: $green;
+        }
+    }
 }
 
 .home-sub-header {
     height: 40vh;
     width: 100%;
     background-color: $elegant-white;
-    @include flex(center, column)
-
-    &__title {
+    @include flex(center, column) &__title {
         @include primaryTitle(megi);
         margin-bottom: 30px;
 
         @include tablet {
             font-size: size(mega);
-        };
+        }
     }
 
     &__sub-title {
@@ -90,10 +94,10 @@
         @include flex(center, row);
         text-align: center;
 
-        @include tablet{
+        @include tablet {
             font-size: size(l);
             margin-bottom: 60px;
-        };
+        }
     }
 
     &__btn {
@@ -112,7 +116,6 @@
             height: 50px;
             font-size: size(l);
         }
-
 
         &:hover {
             background-color: $dark-blue;

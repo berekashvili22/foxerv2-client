@@ -24,9 +24,9 @@ $elegant-font-family: 'Shippori Mincho B1', serif;
 $poll-font-family: 'Shippori Mincho B1', serif;
 
 $font-weights: (
-    "regular": 400,
-    "medium": 500,
-    "bold": 700
+    'regular': 400,
+    'medium': 500,
+    'bold': 700
 );
 
 $font-size: (
@@ -40,30 +40,27 @@ $font-size: (
     'xxl': 26px,
     'mega': 32px,
     'megi': 42px,
-    'giant': 62px,
-    
+    'giant': 62px
 );
 
 @function weight($weight-name) {
-    @return map-get($font-weights, $weight-name)
-};
+    @return map-get($font-weights, $weight-name);
+}
 
 @mixin transition-ease {
     transition: all 0.3s ease-in-out;
 }
 
-
 @function size($size-name) {
-    @return map-get($font-size, $size-name)
-};
+    @return map-get($font-size, $size-name);
+}
 
 @mixin flex($justify, $direction) {
     display: flex;
     justify-content: $justify;
     align-items: center;
     flex-direction: $direction;
-};
-
+}
 
 @mixin primaryTitle($size) {
     font-size: size($size);
