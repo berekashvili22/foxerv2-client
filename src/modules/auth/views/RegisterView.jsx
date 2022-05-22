@@ -12,7 +12,8 @@ const RegisterView = () => {
             className="auth-form login-form"
             onSubmit={onFormSubmit}
             autoComplete="off"
-            autofill="off">
+            autofill="off"
+        >
             <div className="form-wrapper">
                 <label className="form-input-label">ელ-ფოსტა *</label>
                 <input

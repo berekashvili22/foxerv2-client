@@ -10,7 +10,8 @@ const GoogleAuthButton = () => {
             await window.google.accounts.id.initialize({
                 client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
                 ux_mode: 'redirect',
-                login_uri: process.env.NEXT_PUBLIC_CLIENT_URL + process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
+                login_uri:
+                    process.env.NEXT_PUBLIC_CLIENT_URL + process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
             });
             // Render button
             google.accounts.id.renderButton(document.getElementById('g-sign-in'), {

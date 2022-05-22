@@ -8,7 +8,7 @@ import { setUser } from '../../../store/features/user/userSlice';
 
 import { useMessage } from '../../../common/hooks/useMessage';
 
-import { isEmail, sleep } from '../../../common/utils/helpres';
+import { isEmail, sleep } from '../../../common/utils/helpers';
 import { messages } from '../../../common/utils/messages';
 import { sendErrorLog } from '../../../common/lib/errorLogger';
 import { useLocalStorageWithTTL } from '../../../common/hooks/useLocalStorageWithTTL';

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useMessage } from '../../../common/hooks/useMessage';
 
 import { messages } from '../../../common/utils/messages';
-import { sleep } from '../../../common/utils/helpres';
+import { sleep } from '../../../common/utils/helpers';
 import { sendErrorLog } from '../../../common/lib/errorLogger';
 
 import TailSpinner from '../../../common/components/spinners/TailSpinner';

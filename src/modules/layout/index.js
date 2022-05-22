@@ -12,7 +12,10 @@ const Layout = ({ children }) => {
     return (
         <React.Fragment>
             <Head>
-                <link rel="stylesheet" href="//cdn.web-fonts.ge/fonts/bpg-algeti/css/bpg-algeti.min.css" />
+                <link
+                    rel="stylesheet"
+                    href="//cdn.web-fonts.ge/fonts/bpg-algeti/css/bpg-algeti.min.css"
+                />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1, maximum-scale=1"

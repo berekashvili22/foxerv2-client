@@ -51,7 +51,10 @@ const Header = () => {
                             <div className="user-menu_icon_wrapper cart-icon">
                                 <img src={'/icons/cart-icon.svg'} />
                             </div>
-                            <div className="user-menu_icon_wrapper user-icon" onClick={redirectToAuth}>
+                            <div
+                                className="user-menu_icon_wrapper user-icon"
+                                onClick={redirectToAuth}
+                            >
                                 <img src={'/icons/user-icon.svg'} />
                             </div>
                         </div>

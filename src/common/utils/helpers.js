@@ -120,7 +120,8 @@ export function getUrlWithoutQueryString(url) {
  * @param {any} value
  * @return {boolean}
  */
-export const isObject = (value) => value && typeof value === 'object' && value?.constructor === Object;
+export const isObject = (value) =>
+    value && typeof value === 'object' && value?.constructor === Object;
 
 /**
  * Checks if string contains html tags

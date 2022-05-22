@@ -47,7 +47,13 @@ const Me = () => {
     return (
         <>
             <button onClick={logOutUser}>test logout</button>
-            <div>{user ? <h1>welcome {user?.email} u are authorized</h1> : <h1>Please log in first</h1>}</div>
+            <div>
+                {user ? (
+                    <h1>welcome {user?.email} u are authorized</h1>
+                ) : (
+                    <h1>Please log in first</h1>
+                )}
+            </div>
             <div>
                 {serverUser ? (
                     <h1>welcome {serverUser.email} u are authorized on server as well</h1>
