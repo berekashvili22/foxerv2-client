@@ -6,6 +6,7 @@ import { clientConfig } from '../../../../client-config';
 import { setUser } from '../../../store/features/user/userSlice';
 
 import { useDispatch } from 'react-redux';
+import { useLocalStorageWithTTL } from '../../../common/hooks/useLocalStorageWithTTL';
 import { useMessage } from '../../../common/hooks/useMessage';
 
 import { messages } from '../../../common/utils/messages';
@@ -17,6 +18,8 @@ import TailSpinner from '../../../common/components/spinners/TailSpinner';
 const GoogleAuth = () => {
     const dispatch = useDispatch();
     const router = useRouter();
+
+    const { getLocalStorageItemWithTTL } = useLocalStorageWithTTL();
 
     const { setModalMessage } = useMessage();
 
@@ -59,21 +62,21 @@ const GoogleAuth = () => {
                 await sleep(2000);
 
                 // Get next page route
-                const nextPage = localStorage.getItem('nextPage');
-                // Clear local storage nextPAge
-                localStorage.setItem('nextPage', JSON.stringify(''));
+                const nextPage = getLocalStorageItemWithTTL(clientConfig.NEXT_PAGE_KEY);
+
+                // Clear local storage nextPage
+                localStorage.removeItem(clientConfig.NEXT_PAGE_KEY);
+
                 // Redirect to next page
                 router.push(nextPage || clientConfig.HOME_ROUTE);
             } else {
-                resetForm();
-                setModalMessage(msg || messages.login_unexpected, 3000, false);
-                sendErrorLog(`${msg || messages.login_unexpected}`);
+                setModalMessage(msg || messages.unexpected, 3000, false);
+                // sendErrorLog(`${msg || messages.unexpected}`);
                 router.push('/auth');
             }
         } catch (e) {
             sendErrorLog('google.js, handleGoogleLogin : ' + e);
-            setModalMessage(messages.login_unexpected, 3000, false);
-            await sleep(3000);
+            setModalMessage(messages.unexpected, 4000, false);
             router.push('/auth');
         }
     }

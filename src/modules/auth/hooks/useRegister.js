@@ -25,8 +25,7 @@ export const useRegister = () => {
         lastName: '',
         password: '',
         password2: '',
-        agreedOnTerms: false,
-        type: 'user'
+        agreedOnTerms: false
     };
 
     const initialErrorsState = {
@@ -35,18 +34,48 @@ export const useRegister = () => {
         lastName: '',
         password: '',
         password2: '',
-        agreedOnTerms: false,
-        type: 'user'
+        agreedOnTerms: false
     };
 
     const [formInput, setFormInput] = React.useState(initialFormData);
     const [errors, setErrors] = React.useState(initialErrorsState);
 
-    console.log('🚀 ~ file: useRegister.js ~ line 43 ~ useRegister ~ formInput', formInput);
-
     const [loading, setLoading] = React.useState(false);
 
     const { setModalMessage } = useMessage();
+
+    // React.useEffect(() => {
+    //     if (formInput.email && isEmail(formInput.email)) {
+    //         checkIfEmailIsAvailable(formInput.email);
+    //     }
+    // }, [formInput.email]);
+
+    /**
+     * Checks if user with requested email exits
+     * @param {string} email
+     */
+    async function isEmailAvailable(email) {
+        try {
+            const res = await fetch(`${clientConfig.serverURL}/auth/checkIfEmailIsAvailable`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            });
+
+            if (res.status === 200) {
+                const { emailIsAvailable } = await res.json();
+                return emailIsAvailable;
+            } else {
+                // todo : figure out logic in case res.status !== 200
+                return false;
+            }
+        } catch (e) {
+            sendErrorLog('useRegister.js, checkIfEmailIsAvailable : ', e);
+            return false;
+        }
+    }
 
     /**
      * Reset component states to initial values
@@ -94,17 +123,17 @@ export const useRegister = () => {
                 }
                 break;
             case 'firstName':
-                if (!firstName.length) {
+                if (!value.length) {
                     validationErrors.firstName = messages.empty_field;
                 } else {
-                    delete validationErrors.email;
+                    delete validationErrors.firstName;
                 }
                 break;
             case 'lastName':
-                if (!lastName.length) {
+                if (!value.length) {
                     validationErrors.lastName = messages.empty_field;
                 } else {
-                    delete validationErrors.email;
+                    delete validationErrors.lastName;
                 }
                 break;
             case 'password':
@@ -115,19 +144,19 @@ export const useRegister = () => {
                 }
                 break;
             case 'password2':
-                if (!password2.length) {
+                if (!value.length) {
                     validationErrors.password2 = messages.empty_field;
-                } else if (password2 !== password) {
+                } else if (value !== formInput.password) {
                     validationErrors.password2 = messages.pw_match;
                 } else {
-                    delete validationErrors.password;
+                    delete validationErrors.password2;
                 }
                 break;
             case 'agreedOnTerms':
-                if (!agreedOnTerms) {
+                if (!value) {
                     validationErrors.agreedOnTerms = messages.terms_not_agreed;
                 } else {
-                    delete validationErrors.password;
+                    delete validationErrors.agreedOnTerms;
                 }
                 break;
             default:
@@ -143,65 +172,91 @@ export const useRegister = () => {
      * @return {void}
      */
     async function onFormSubmit(e) {
-        if (loading) return;
-
+        // Prevent default form action
         e.preventDefault();
 
-        // Validate formInput values
-        const isValid = isInputValid(formInput);
+        // Validate form values
+        const { validationErrors, isValid } = await validateFormData(formInput);
+
+        // Update errors state
+        setErrors((prevErrors) => {
+            return { ...prevErrors, ...validationErrors };
+        });
 
         // If form is not valid stop function
-        if (!isValid) {
-            await sleep(1000);
-            setLoading(false);
-            return;
-        }
+        if (!isValid) return;
+
+        setLoading(true);
 
         try {
-            setLoading(true);
+            // todo create separated function for register
+            const res = await fetch(`${clientConfig.serverURL}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formInput)
+            });
 
-            // Get email and password from formInput values
-            const { email, password } = formInput;
+            const {
+                user: newUser,
+                msg: registerMsg,
+                errors: serverValidationErrors
+            } = await res.json();
 
-            if (email && password) {
-                // Send input values to server
-                const res = await fetch(`${clientConfig.serverURL}/auth/login`, {
+            // If success
+            if (res.status === 200) {
+                // Set modal message
+                setModalMessage(registerMsg, 3000, true);
+                // ! Temporary
+                // Login user
+                const loginRes = await fetch(`${clientConfig.serverURL}/auth/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({
+                        email: newUser.email,
+                        password: newUser.password
+                    })
                 });
 
-                const { user, msg } = await res.json();
+                const { user, msg } = await loginRes.json();
 
-                // Reset states to initial values
-                resetForm();
-
-                if (res.status === 200) {
+                if (loginRes.status === 200) {
                     // Set user data to local storage
                     localStorage.setItem('user', JSON.stringify(user));
 
                     // Set user data to store
                     dispatch(setUser(user));
 
-                    setModalMessage(msg, 2000, true);
-                    await sleep(2000);
-
                     // Get next page route
                     const nextPage = getLocalStorageItemWithTTL(clientConfig.NEXT_PAGE_KEY);
-
                     // Clear local storage nextPage
                     localStorage.removeItem(clientConfig.NEXT_PAGE_KEY);
 
+                    await sleep(3000);
                     // Redirect to next page
                     router.push(nextPage || clientConfig.HOME_ROUTE);
-                } else if (res.status === 401) {
-                    setModalMessage(msg, 3000, false);
+                } else if (loginRes.status === 401) {
+                    // todo send error log
+                    console.log('login after register failed with status code 401');
                 } else {
-                    setModalMessage(msg || messages.login_unexpected, 3000, false);
-                    sendErrorLog(`${msg || messages.login_unexpected}`);
+                    console.log('login after register failed unexpectedly');
+                    setModalMessage(messages.login_unexpected, 3000, false);
                 }
+                // ! Temporary
+
+                // Reset form state to initial values
+                resetForm();
+            } else if (res.status === 400) {
+                // Set errors messages from server
+                setErrors((prevErrors) => {
+                    return { ...prevErrors, serverValidationErrors };
+                });
+            } else if (res.status === 500) {
+                // Set modal message
+                setModalMessage(registerMsg);
             }
         } catch (e) {
             sendErrorLog('LoginView.jsx, onFormSubmit: ' + e);
@@ -216,55 +271,43 @@ export const useRegister = () => {
      * @param {Object} formData
      * @return {boolean}
      */
-    function isInputValid(formData) {
-        let isValid = true;
-        let validationErrors = {};
+    async function validateFormData(formData) {
+        // Create empty object for errors
+        const validationErrors = {};
 
-        try {
-            const { email, firstName, lastName, password, password2, agreedOnTerms } = formData;
+        // Get values from form data
+        const { email, firstName, lastName, password, password2, agreedOnTerms } = formData;
 
-            if (!email.length) {
-                validationErrors.email = messages.empty_field;
-            } else if (!isEmail(email)) {
-                validationErrors.email = messages.invalid_email;
-            }
-
-            if (!firstName.length) {
-                validationErrors.firstName = messages.empty_field;
-            }
-
-            if (!lastName.length) {
-                validationErrors.lastName = messages.empty_field;
-            }
-
-            if (!password.length) {
-                validationErrors.password = messages.empty_field;
-            } else if (password.length < 6) {
-                validationErrors.password = messages.pw_length;
-            }
-
-            if (!password2.length) {
-                validationErrors.password2 = messages.empty_field;
-            } else if (password2 !== password) {
-                validationErrors.password2 = messages.pw_match;
-            }
-
-            if (!agreedOnTerms) {
-                validationErrors.agreedOnTerms = messages.terms_not_agreed;
-            }
-
-            if (Object.keys(validationErrors).length) {
-                setErrors({ ...initialErrorsState, ...validationErrors });
-                isValid = false;
-            } else {
-                setErrors(initialErrorsState);
-            }
-        } catch (e) {
-            sendErrorLog('UseRegister.js, isInputValid: ' + e);
-            return false;
+        // If email field is empty
+        if (!email.length) validationErrors.email = messages.empty_field;
+        // If email is not in valid format
+        else if (!isEmail(email)) validationErrors.email = messages.invalid_email;
+        // If email is already used
+        else {
+            const available = await isEmailAvailable(email);
+            if (!available) validationErrors.email = messages.already_used_email;
         }
 
-        return isValid;
+        // If first name is empty
+        if (!firstName.length) validationErrors.firstName = messages.empty_field;
+
+        // If last name is empty
+        if (!lastName.length) validationErrors.lastName = messages.empty_field;
+
+        // If password is empty
+        if (!password.length) validationErrors.password = messages.empty_field;
+        // If password length is less than 6
+        else if (password.length < 6) validationErrors.password = messages.pw_length;
+
+        // If password2 is empty
+        if (!password2.length) validationErrors.password2 = messages.empty_field;
+        // If password2 does not match password
+        else if (password2 !== password) validationErrors.password2 = messages.pw_match;
+
+        // If agreed on terms is not checked
+        if (!agreedOnTerms) validationErrors.agreedOnTerms = messages.terms_not_agreed;
+
+        return { validationErrors, isValid: Object.keys(validationErrors).length === 0 };
     }
 
     return { handleInputChange, onFormSubmit, formInput, errors, loading };

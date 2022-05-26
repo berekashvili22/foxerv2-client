@@ -35,7 +35,6 @@ export const useLogin = () => {
     function resetForm() {
         setFormInput(initialFormData);
         setErrors(initialErrorsState);
-        // setLoading(false);
     }
 
     /**
@@ -93,8 +92,7 @@ export const useLogin = () => {
      * @return {void}
      */
     async function onFormSubmit(e) {
-        if (loading) return;
-
+        // Prevent default form action
         e.preventDefault();
 
         // Validate formInput values
@@ -107,9 +105,10 @@ export const useLogin = () => {
             return;
         }
 
-        try {
-            setLoading(true);
 
+        setLoading(true);
+        
+        try {
             // Get email and password from formInput values
             const { email, password } = formInput;
 

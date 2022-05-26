@@ -393,7 +393,11 @@ button {
   bottom: -20px;
   color: #8f2b33;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 13px;
+}
+
+.auth-view-wrapper .auth-form-wrapper .form-wrapper .checkbox-error {
+  bottom: -15px;
 }
 
 .auth-view-wrapper .auth-form-wrapper .auth-checkbox-form-wrapper {
@@ -404,6 +408,7 @@ button {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-bottom: 40px;
 }
 
 .auth-view-wrapper .auth-form-wrapper .auth-checkbox-form-wrapper .auth-checkbox-form-input {
@@ -445,6 +450,10 @@ button {
   background-color: #2c24c0;
 }
 
+.auth-view-wrapper .auth-form-wrapper .register-btn {
+  margin-bottom: 0px;
+}
+
 .auth-view-wrapper .auth-text-muted {
   color: #8a7272;
   text-decoration: underline;
@@ -453,6 +462,10 @@ button {
 
 .auth-view-wrapper .auth-form-bottom-text {
   margin: 20px 0px;
+}
+
+.auth-view-wrapper .register-bottom-text {
+  margin: 10px 0px;
 }
 
 .auth-view-wrapper .auth-go-back-btn {
