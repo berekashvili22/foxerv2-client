@@ -9,7 +9,7 @@ const RegisterView = ({ formData, strings }) => {
     const { handleInputChange, onFormSubmit, formInput, errors, loading } = useRegister();
 
     return (
-        <form className="auth-form login-form" onSubmit={onFormSubmit}>
+        <form className="flex-col border-solid d-flex" onSubmit={onFormSubmit}>
             {/* Create form fields */}
             {formData.map(
                 ({ name, placeholder, title, type, errorClass, wrapperClass, inputClass }) => (

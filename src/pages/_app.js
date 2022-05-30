@@ -1,8 +1,9 @@
-import Script from 'next/script';
 import React from 'react';
 import { Provider } from 'react-redux';
+
 import '../../styles/css/main.css';
 import '../../styles/global.css';
+import '../../styles/index.css';
 
 import Layout from '../modules/layout';
 import { store } from '../store/store';

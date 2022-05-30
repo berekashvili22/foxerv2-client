@@ -9,7 +9,7 @@ const LoginView = ({ formData, strings }) => {
     const { handleInputChange, onFormSubmit, formInput, errors, loading } = useLogin();
 
     return (
-        <form className="auth-form login-form" onSubmit={onFormSubmit}>
+        <form className="flex-col border-solid d-flex" onSubmit={onFormSubmit}>
             {formData.map(
                 ({ name, placeholder, title, type, errorClass, wrapperClass, inputClass }) => (
                     <InputField
@@ -27,6 +27,9 @@ const LoginView = ({ formData, strings }) => {
                     />
                 )
             )}
+            <p className="text-right underline cursor-pointer underline-offset-1">
+                {strings.forgotPassword}
+            </p>
             <LocalAuthButton loading={loading} text={strings.loginButtonText} type={'login'} />
         </form>
     );

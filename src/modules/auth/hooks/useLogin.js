@@ -12,6 +12,7 @@ import { isEmail, sleep } from '../../../common/utils/helpers';
 import { messages } from '../../../common/utils/messages';
 import { sendErrorLog } from '../../../common/lib/errorLogger';
 import { useLocalStorageWithTTL } from '../../../common/hooks/useLocalStorageWithTTL';
+import { loginUser } from '../../utils/functions';
 
 export const useLogin = () => {
     const dispatch = useDispatch();
@@ -105,51 +106,47 @@ export const useLogin = () => {
             return;
         }
 
-
         setLoading(true);
-        
+
         try {
             // Get email and password from formInput values
             const { email, password } = formInput;
 
+            // If we have email and password
             if (email && password) {
-                // Send input values to server
-                const res = await fetch(`${clientConfig.serverURL}/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const { user, msg } = await res.json();
-
                 // Reset states to initial values
                 resetForm();
 
-                if (res.status === 200) {
+                // Send login request
+                const { user, msg, success } = await loginUser(email, password);
+
+                // If login was successful
+                if (success) {
+                    // todo : create set user function
                     // Set user data to local storage
                     localStorage.setItem('user', JSON.stringify(user));
 
                     // Set user data to store
                     dispatch(setUser(user));
 
-                    setModalMessage(msg, 2000, true);
-                    await sleep(2000);
+                    // Set modal messages
+                    setModalMessage(msg, 3000, true);
+
+                    // // ! temp
+                    // await sleep(3000);
+
+                    // todo : create hook for next page
 
                     // Get next page route
                     const nextPage = getLocalStorageItemWithTTL(clientConfig.NEXT_PAGE_KEY);
 
-                    // Clear local storage nextPage
+                    // Remove nextPage from local storage
                     localStorage.removeItem(clientConfig.NEXT_PAGE_KEY);
 
                     // Redirect to next page
                     router.push(nextPage || clientConfig.HOME_ROUTE);
-                } else if (res.status === 401) {
-                    setModalMessage(msg, 3000, false);
                 } else {
-                    setModalMessage(msg || messages.login_unexpected, 3000, false);
-                    sendErrorLog(`${msg || messages.login_unexpected}`);
+                    setModalMessage(msg || messages.unexpected, 3000, false);
                 }
             }
         } catch (e) {

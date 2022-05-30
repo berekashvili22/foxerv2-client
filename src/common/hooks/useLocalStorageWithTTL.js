@@ -31,7 +31,7 @@ export const useLocalStorageWithTTL = () => {
 
         // If TTL has expired, remove the item from localStorage and return null
         if (Date.now() > item.ttl) {
-            localStorage.removeItem(key);
+            localStorage.removeItem(keyName);
             return null;
         }
 

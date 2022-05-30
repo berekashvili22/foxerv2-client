@@ -12,6 +12,7 @@ import { isEmail, sleep } from '../../../common/utils/helpers';
 import { messages } from '../../../common/utils/messages';
 import { sendErrorLog } from '../../../common/lib/errorLogger';
 import { useLocalStorageWithTTL } from '../../../common/hooks/useLocalStorageWithTTL';
+import { loginUser, registerUser } from '../../utils/functions';
 
 export const useRegister = () => {
     const dispatch = useDispatch();
@@ -186,81 +187,53 @@ export const useRegister = () => {
         // If form is not valid stop function
         if (!isValid) return;
 
+        // Set loading to true
         setLoading(true);
 
         try {
-            // todo create separated function for register
-            const res = await fetch(`${clientConfig.serverURL}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formInput)
-            });
-
+            // Send register request
             const {
-                user: newUser,
-                msg: registerMsg,
-                errors: serverValidationErrors
-            } = await res.json();
+                user,
+                msg,
+                errors: serverValidationErrors,
+                success
+            } = await registerUser(formInput);
 
-            // If success
-            if (res.status === 200) {
-                // Set modal message
-                setModalMessage(registerMsg, 3000, true);
-                // ! Temporary
-                // Login user
-                const loginRes = await fetch(`${clientConfig.serverURL}/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: newUser.email,
-                        password: newUser.password
-                    })
-                });
-
-                const { user, msg } = await loginRes.json();
-
-                if (loginRes.status === 200) {
-                    // Set user data to local storage
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // Set user data to store
-                    dispatch(setUser(user));
-
-                    // Get next page route
-                    const nextPage = getLocalStorageItemWithTTL(clientConfig.NEXT_PAGE_KEY);
-                    // Clear local storage nextPage
-                    localStorage.removeItem(clientConfig.NEXT_PAGE_KEY);
-
-                    await sleep(3000);
-                    // Redirect to next page
-                    router.push(nextPage || clientConfig.HOME_ROUTE);
-                } else if (loginRes.status === 401) {
-                    // todo send error log
-                    console.log('login after register failed with status code 401');
-                } else {
-                    console.log('login after register failed unexpectedly');
-                    setModalMessage(messages.login_unexpected, 3000, false);
-                }
-                // ! Temporary
-
+            // todo : change logic after register success
+            // If register was successful
+            if (success) {
                 // Reset form state to initial values
                 resetForm();
-            } else if (res.status === 400) {
+                // Set modal message
+                setModalMessage(msg, 3000, true);
+
+                localStorage.setItem('user', JSON.stringify(user));
+
+                // Set user data to store
+                dispatch(setUser(user));
+
+                // Get next page route
+                const nextPage = getLocalStorageItemWithTTL(clientConfig.NEXT_PAGE_KEY);
+
+                // Clear local storage nextPage
+                localStorage.removeItem(clientConfig.NEXT_PAGE_KEY);
+
+                // Redirect to next page
+                router.push(nextPage || clientConfig.HOME_ROUTE);
+            } else if (Object.keys(serverValidationErrors || {}).length) {
+                // If validation errors
+
+                setModalMessage(msg, 3000, false);
                 // Set errors messages from server
                 setErrors((prevErrors) => {
                     return { ...prevErrors, serverValidationErrors };
                 });
-            } else if (res.status === 500) {
-                // Set modal message
-                setModalMessage(registerMsg);
+            } else {
+                setModalMessage(messages.unexpected, 3000, false);
             }
         } catch (e) {
             sendErrorLog('LoginView.jsx, onFormSubmit: ' + e);
-            setModalMessage(messages.login_unexpected, 3000, false);
+            setModalMessage(messages.unexpected, 3000, false);
         } finally {
             setLoading(false);
         }

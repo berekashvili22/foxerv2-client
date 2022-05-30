@@ -1,7 +1,9 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
+
+const RegisterView = dynamic(() => import('../../modules/auth/views/RegisterView'));
 
 import LoginView from '../../modules/auth/views/LoginView';
-import RegisterView from '../../modules/auth/views/RegisterView';
 
 import GoogleAuthButton from '../../modules/auth/components/GoogleAuthButton';
 
@@ -27,16 +29,19 @@ const Auth = () => {
         activeView === views.login ? setActiveView(views.register) : setActiveView(views.login);
 
     return (
-        <div className="auth-view-wrapper">
-            <React.Fragment>
+        <React.Fragment>
+            <div className="relative justify-center w-full h-screen bg-gray d-flex">
                 <img
-                    className="auth-go-back-btn"
+                    className="absolute w-8 h-8 cursor-pointer left-5 top-5"
                     src="/icons/go-back-left-arrow.svg"
                     alt="Go back"
                     onClick={goBack}
                 />
-                <div className={`auth-form-wrapper ${activeView}-wrapper`}>
-                    <h1 className={`auth-form-title ${activeView}-title`}>
+                <div
+                    className={`flex-col ${
+                        activeView === views.login ? 'mt-40' : 'mt-20'
+                    } border-solid d-flex align-center`}>
+                    <h1 className="mb-10 text-4xl font-normal tracking-wide text-center text-indigo-600">
                         {strings[activeView].mainTitle}
                     </h1>
                     {activeView === views.login ? (
@@ -44,30 +49,21 @@ const Auth = () => {
                     ) : (
                         <RegisterView formData={formData.register} strings={strings} />
                     )}
-                    {activeView === views.login && (
-                        <p className="auth-text-muted auth-form-forgot-password">
-                            {strings.forgotPassword}
-                        </p>
-                    )}
-                    <p className={`auth-form-bottom-text ${activeView}-bottom-text`}>
-                        {strings.or}
-                    </p>
-                    <GoogleAuthButton />
-                    <p className="auth-does-not-have-account">
+                    <p className="mt-3 mb-3 text-center text-gray-500">{strings.or}</p>
+                    <div className="justify-center mb-5 d-flex">
+                        <GoogleAuthButton />
+                    </div>
+                    <p className="text-center">
                         {strings[activeView].questionText}
-                        <span onClick={setView}>{strings[activeView].solutionText}</span>
+                        <span
+                            className="pl-2 text-lg font-bold underline cursor-pointer"
+                            onClick={setView}>
+                            {strings[activeView].solutionText}
+                        </span>
                     </p>
                 </div>
-                <div className="auth-image-wrapper login-image-wrapper">
-                    <img
-                        className="auth-image login-image"
-                        src={`/images/login-image.svg`}
-                        alt="login"
-                    />
-                </div>
-                <div className="auth-form-circle" />
-            </React.Fragment>
-        </div>
+            </div>
+        </React.Fragment>
     );
 };
 
