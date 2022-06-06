@@ -81,7 +81,7 @@ export const strings = {
     login: {
         mainTitle: 'ავტორიზაცია',
         questionText: 'ახალი ხარ?',
-        solutionText: 'რეგისტრაცია'
+        solutionText: 'დარეგისტრირდი'
     },
     register: {
         mainTitle: 'რეგისტრაცია',
@@ -91,5 +91,6 @@ export const strings = {
     forgotPassword: 'დაგავიწყდა პაროლი?',
     or: 'ან',
     registerButtonText: 'რეგისტრაცია',
-    loginButtonText: 'შესვლა'
+    loginButtonText: 'შესვლა',
+    promotionText: 'მოიწვიე მეგობრები და მიიღეთ დაამატებითი ქულები და ფასდაკლებები ანგარიშზე'
 };

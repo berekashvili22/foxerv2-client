@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../../store/features/user/userSlice';
 
 import { useMessage } from '../../../common/hooks/useMessage';
+import { useModal } from '../../../common/hooks/useModal';
 
 import { isEmail, sleep } from '../../../common/utils/helpers';
 import { messages } from '../../../common/utils/messages';
@@ -19,6 +20,7 @@ export const useLogin = () => {
     const router = useRouter();
 
     const { getLocalStorageItemWithTTL } = useLocalStorageWithTTL();
+    const { toggleModalState } = useModal();
 
     const initialFormData = { email: '', password: '' };
     const initialErrorsState = { email: '', password: '' };
@@ -145,6 +147,7 @@ export const useLogin = () => {
 
                     // Redirect to next page
                     router.push(nextPage || clientConfig.HOME_ROUTE);
+                    toggleModalState('authModalIsOpen', false);
                 } else {
                     setModalMessage(msg || messages.unexpected, 3000, false);
                 }

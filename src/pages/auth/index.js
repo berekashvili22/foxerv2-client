@@ -40,7 +40,8 @@ const Auth = () => {
                 <div
                     className={`flex-col ${
                         activeView === views.login ? 'mt-40' : 'mt-20'
-                    } border-solid d-flex align-center`}>
+                    } border-solid d-flex align-center`}
+                >
                     <h1 className="mb-10 text-4xl font-normal tracking-wide text-center text-indigo-600">
                         {strings[activeView].mainTitle}
                     </h1>
@@ -57,7 +58,8 @@ const Auth = () => {
                         {strings[activeView].questionText}
                         <span
                             className="pl-2 text-lg font-bold underline cursor-pointer"
-                            onClick={setView}>
+                            onClick={setView}
+                        >
                             {strings[activeView].solutionText}
                         </span>
                     </p>

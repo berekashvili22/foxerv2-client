@@ -204,27 +204,28 @@ export default function Catalog() {
 
     return (
         <React.Fragment>
-            <nav class="bg-gray-100 px-5 py-3 rounded-md  w-full">
-                <ol class="list-reset flex container mx-auto">
+            <nav className="w-full px-5 py-3 bg-gray-100 rounded-md">
+                <ol className="container flex mx-auto list-reset">
                     <li>
-                        <a href="#" class="text-blue-600 hover:text-blue-700">
+                        <a href="#" className="text-blue-600 hover:text-blue-700">
                             Home
                         </a>
                     </li>
                     <li>
-                        <span class="text-gray-500 mx-2">/</span>
+                        <span className="mx-2 text-gray-500">/</span>
                     </li>
                     <li>
-                        <a href="#" class="text-blue-600 hover:text-blue-700">
+                        <a href="#" className="text-blue-600 hover:text-blue-700">
                             Library
                         </a>
                     </li>
                     <li>
-                        <span class="text-gray-500 mx-2">/</span>
+                        <span className="mx-2 text-gray-500">/</span>
                     </li>
-                    <li class="text-gray-500">Data</li>
+                    <li className="text-gray-500">Data</li>
                 </ol>
             </nav>
+
             <div className="container w-full mx-auto ">
                 <div>
                     {/* Mobile filter dialog */}
@@ -232,7 +233,8 @@ export default function Catalog() {
                         <Dialog
                             as="div"
                             className="relative z-40 lg:hidden"
-                            onClose={setMobileFiltersOpen}>
+                            onClose={setMobileFiltersOpen}
+                        >
                             <Transition.Child
                                 as={Fragment}
                                 enter="transition-opacity ease-linear duration-300"
@@ -240,7 +242,8 @@ export default function Catalog() {
                                 enterTo="opacity-100"
                                 leave="transition-opacity ease-linear duration-300"
                                 leaveFrom="opacity-100"
-                                leaveTo="opacity-0">
+                                leaveTo="opacity-0"
+                            >
                                 <div className="fixed inset-0 bg-black bg-opacity-25" />
                             </Transition.Child>
 
@@ -252,7 +255,8 @@ export default function Catalog() {
                                     enterTo="translate-x-0"
                                     leave="transition ease-in-out duration-300 transform"
                                     leaveFrom="translate-x-0"
-                                    leaveTo="translate-x-full">
+                                    leaveTo="translate-x-full"
+                                >
                                     <Dialog.Panel className="relative flex flex-col w-full h-full max-w-xs py-4 pb-12 ml-auto overflow-y-auto bg-white shadow-xl">
                                         <div className="flex items-center justify-between px-4">
                                             <h2 className="text-lg font-medium text-gray-900">
@@ -261,7 +265,8 @@ export default function Catalog() {
                                             <button
                                                 type="button"
                                                 className="flex items-center justify-center w-10 h-10 p-2 -mr-2 text-gray-400 bg-white rounded-md"
-                                                onClick={() => setMobileFiltersOpen(false)}>
+                                                onClick={() => setMobileFiltersOpen(false)}
+                                            >
                                                 <span className="sr-only">Close menu</span>
                                                 <XIcon className="w-6 h-6" aria-hidden="true" />
                                             </button>
@@ -272,12 +277,14 @@ export default function Catalog() {
                                             <h3 className="sr-only">Categories</h3>
                                             <ul
                                                 role="list"
-                                                className="px-2 py-3 font-medium text-gray-900">
+                                                className="px-2 py-3 font-medium text-gray-900"
+                                            >
                                                 {subCategories.map((category) => (
                                                     <li key={category.name}>
                                                         <a
                                                             href={category.href}
-                                                            className="block px-2 py-3">
+                                                            className="block px-2 py-3"
+                                                        >
                                                             {category.name}
                                                         </a>
                                                     </li>
@@ -288,7 +295,8 @@ export default function Catalog() {
                                                 <Disclosure
                                                     as="div"
                                                     key={section.id}
-                                                    className="px-4 py-6 border-t border-gray-200">
+                                                    className="px-4 py-6 border-t border-gray-200"
+                                                >
                                                     {({ open }) => (
                                                         <>
                                                             <h3 className="flow-root -mx-2 -my-3">
@@ -317,7 +325,8 @@ export default function Catalog() {
                                                                         (option, optionIdx) => (
                                                                             <div
                                                                                 key={option.value}
-                                                                                className="flex items-center">
+                                                                                className="flex items-center"
+                                                                            >
                                                                                 <input
                                                                                     id={`filter-mobile-${section.id}-${optionIdx}`}
                                                                                     name={`${section.id}[]`}
@@ -332,7 +341,8 @@ export default function Catalog() {
                                                                                 />
                                                                                 <label
                                                                                     htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                                                                    className="flex-1 min-w-0 ml-3 text-gray-500">
+                                                                                    className="flex-1 min-w-0 ml-3 text-gray-500"
+                                                                                >
                                                                                     {option.label}
                                                                                 </label>
                                                                             </div>
@@ -376,7 +386,8 @@ export default function Catalog() {
                                         enterTo="transform opacity-100 scale-100"
                                         leave="transition ease-in duration-75"
                                         leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95">
+                                        leaveTo="transform opacity-0 scale-95"
+                                    >
                                         <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <div className="py-1">
                                                 {sortOptions.map((option) => (
@@ -390,7 +401,8 @@ export default function Catalog() {
                                                                         : 'text-gray-500',
                                                                     active ? 'bg-gray-100' : '',
                                                                     'block px-4 py-2 text-sm'
-                                                                )}>
+                                                                )}
+                                                            >
                                                                 {option.name}
                                                             </a>
                                                         )}
@@ -403,14 +415,16 @@ export default function Catalog() {
 
                                 <button
                                     type="button"
-                                    className="p-2 ml-5 -m-2 text-gray-400 sm:ml-7 hover:text-gray-500">
+                                    className="p-2 ml-5 -m-2 text-gray-400 sm:ml-7 hover:text-gray-500"
+                                >
                                     <span className="sr-only">View grid</span>
                                     <ViewGridIcon className="w-5 h-5" aria-hidden="true" />
                                 </button>
                                 <button
                                     type="button"
                                     className="p-2 ml-4 -m-2 text-gray-400 sm:ml-6 hover:text-gray-500 lg:hidden"
-                                    onClick={() => setMobileFiltersOpen(true)}>
+                                    onClick={() => setMobileFiltersOpen(true)}
+                                >
                                     <span className="sr-only">Filters</span>
                                     <FilterIcon className="w-5 h-5" aria-hidden="true" />
                                 </button>
@@ -428,7 +442,8 @@ export default function Catalog() {
                                     <h3 className="sr-only">Categories</h3>
                                     <ul
                                         role="list"
-                                        className="pb-6 space-y-4 text-sm font-medium text-gray-900 border-b border-gray-200">
+                                        className="pb-6 space-y-4 text-sm font-medium text-gray-900 border-b border-gray-200"
+                                    >
                                         {subCategories.map((category) => (
                                             <li key={category.name}>
                                                 <a href={category.href}>{category.name}</a>
@@ -440,7 +455,8 @@ export default function Catalog() {
                                         <Disclosure
                                             as="div"
                                             key={section.id}
-                                            className="py-6 border-b border-gray-200">
+                                            className="py-6 border-b border-gray-200"
+                                        >
                                             {({ open }) => (
                                                 <>
                                                     <h3 className="flow-root -my-3">
@@ -469,7 +485,8 @@ export default function Catalog() {
                                                                 (option, optionIdx) => (
                                                                     <div
                                                                         key={option.value}
-                                                                        className="flex items-center">
+                                                                        className="flex items-center"
+                                                                    >
                                                                         <input
                                                                             id={`filter-${section.id}-${optionIdx}`}
                                                                             name={`${section.id}[]`}
@@ -484,7 +501,8 @@ export default function Catalog() {
                                                                         />
                                                                         <label
                                                                             htmlFor={`filter-${section.id}-${optionIdx}`}
-                                                                            className="ml-3 text-sm text-gray-600">
+                                                                            className="ml-3 text-sm text-gray-600"
+                                                                        >
                                                                             {option.label}
                                                                         </label>
                                                                     </div>
@@ -511,7 +529,8 @@ export default function Catalog() {
                                                     <a
                                                         key={product.id}
                                                         href={product.href}
-                                                        className="group">
+                                                        className="group"
+                                                    >
                                                         <div className="w-full overflow-hidden bg-gray-200 rounded-lg aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8">
                                                             <img
                                                                 src={product.imageSrc}

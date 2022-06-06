@@ -4,20 +4,18 @@ const InputField = ({
     title,
     type,
     value,
-    wrapperClass,
-    inputClass,
     handleInputChange,
     errorClass,
     error
 }) => {
     return (
         <div
-            className={`relative  w-80 d-flex ${
+            className={`relative  w-full d-flex ${
                 type === 'checkbox' ? 'flex-row justify-between mt-2' : 'flex-col'
             } `}>
-            <label className="text-lg text-gray">{title}</label>
+            <label className="text-base text-gray mb-1 text-gray-700">{title}</label>
             <input
-                className={`block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mb-6 ${
+                className={`block px-3 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mb-5 ${
                     type === 'checkbox' ? 'w-5 h-5 cursor-pointer' : ''
                 }`}
                 placeholder={placeholder}
@@ -27,9 +25,7 @@ const InputField = ({
                 onChange={handleInputChange}
             />
             {error && (
-                <p className={`absolute bottom-0 text-red-600 font-normal  ${errorClass}`}>
-                    {error}
-                </p>
+                <p className={`absolute bottom-0 text-red-600 text-sm  ${errorClass}`}>{error}</p>
             )}
         </div>
     );

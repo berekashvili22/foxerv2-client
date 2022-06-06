@@ -6,17 +6,20 @@ import { clientConfig } from '../../../../client-config';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../store/features/user/userSlice';
 
+import { useModal } from '../../../common/hooks/useModal';
 import { useMessage } from '../../../common/hooks/useMessage';
 
 import { isEmail, sleep } from '../../../common/utils/helpers';
 import { messages } from '../../../common/utils/messages';
 import { sendErrorLog } from '../../../common/lib/errorLogger';
 import { useLocalStorageWithTTL } from '../../../common/hooks/useLocalStorageWithTTL';
-import { loginUser, registerUser } from '../../utils/functions';
+import { registerUser } from '../../utils/functions';
 
 export const useRegister = () => {
     const dispatch = useDispatch();
     const router = useRouter();
+
+    const { toggleModalState } = useModal();
 
     const { getLocalStorageItemWithTTL } = useLocalStorageWithTTL();
 
@@ -220,6 +223,7 @@ export const useRegister = () => {
 
                 // Redirect to next page
                 router.push(nextPage || clientConfig.HOME_ROUTE);
+                toggleModalState('authModalIsOpen', false);
             } else if (Object.keys(serverValidationErrors || {}).length) {
                 // If validation errors
 

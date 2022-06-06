@@ -26,9 +26,13 @@ const Layout = ({ children }) => {
             </Head>
             {/* <Header /> */}
             <HeaderView />
+            <div
+                id="black-blur"
+                className="w-screen hidden z-40 h-full absolute top-32 opacity-70 bg-black"
+            />
             {message && (
                 <div
-                    className={`absolute top-0 flex items-center justify-center w-full h-10 text-lg font-bold text-white ${
+                    className={`absolute z-50 rounded top-0 flex items-center justify-center w-full h-10 text-lg font-bold text-white ${
                         type ? 'bg-green-500' : 'bg-red-500'
                     }`}>
                     <span className="mr-5 rounded-lg flex-0">

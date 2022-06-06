@@ -13,13 +13,14 @@ const GoogleAuthButton = () => {
                 login_uri:
                     process.env.NEXT_PUBLIC_CLIENT_URL + process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
             });
+
             // Render button
             google.accounts.id.renderButton(document.getElementById('g-sign-in'), {
                 type: 'standard',
                 theme: 'outline',
                 size: 'large',
                 text: 'signup_with',
-                width: '300px',
+                width: '344px',
                 shape: 'rectangular'
             });
         } catch (e) {

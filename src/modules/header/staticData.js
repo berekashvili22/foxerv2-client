@@ -1,66 +1,5 @@
 export const navigation = {
     categories: [
-        // {
-        //     id: 'women',
-        //     name: 'ქალი',
-        //     featured: [
-        //         {
-        //             name: 'New Arrivals',
-        //             href: '#',
-        //             imageSrc:
-        //                 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-        //             imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.'
-        //         },
-        //         {
-        //             name: 'Basic Tees',
-        //             href: '#',
-        //             imageSrc:
-        //                 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-        //             imageAlt:
-        //                 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.'
-        //         }
-        //     ],
-        //     sections: [
-        //         {
-        //             id: 'clothing',
-        //             name: 'ტანსაცმელი',
-        //             items: [
-        //                 { name: 'Tops', href: '#' },
-        //                 { name: 'Dresses', href: '#' },
-        //                 { name: 'Pants', href: '#' },
-        //                 { name: 'Denim', href: '#' },
-        //                 { name: 'Sweaters', href: '#' },
-        //                 { name: 'T-Shirts', href: '#' },
-        //                 { name: 'Jackets', href: '#' },
-        //                 { name: 'Activewear', href: '#' },
-        //                 { name: 'Browse All', href: '#' }
-        //             ]
-        //         },
-        //         {
-        //             id: 'accessories',
-        //             name: 'აქსესუარები',
-        //             items: [
-        //                 { name: 'Watches', href: '#' },
-        //                 { name: 'Wallets', href: '#' },
-        //                 { name: 'Bags', href: '#' },
-        //                 { name: 'Sunglasses', href: '#' },
-        //                 { name: 'Hats', href: '#' },
-        //                 { name: 'Belts', href: '#' }
-        //             ]
-        //         },
-        //         {
-        //             id: 'brands',
-        //             name: 'ბრენდები',
-        //             items: [
-        //                 { name: 'Full Nelson', href: '#' },
-        //                 { name: 'My Way', href: '#' },
-        //                 { name: 'Re-Arranged', href: '#' },
-        //                 { name: 'Counterfeit', href: '#' },
-        //                 { name: 'Significant Other', href: '#' }
-        //             ]
-        //         }
-        //     ]
-        // },
         {
             id: 'men',
             name: 'კაცი',
@@ -125,4 +64,358 @@ export const navigation = {
         { name: 'ჩვენს შესახებ', href: '#' },
         { name: 'კონტაქტი', href: '#' }
     ]
+};
+
+export const headerNavigationItems = [
+    { title: 'კატეგორიები', slug: '' },
+    { title: 'ჩვენს შესახებს', slug: '' },
+    { title: 'წესები & პირობები', slug: '' },
+    { title: 'კონტაქტი', slug: '' }
+];
+
+export const data = {
+    strings: {
+        topBar: {
+            text: 'მიიღე უფასო მიწოდება თბილისის მასშტაბით'
+        }
+    },
+    MainNavigationItems: [
+        {
+            title: 'SALE',
+            slug: '/store/catalog',
+            customStyle: 'bg-red-300 text-white px-2 hover:text-white hover:bg-red-400 rounded',
+            categories: [
+                {
+                    id: 'men',
+                    name: 'კაცი',
+                    featured: [
+                        {
+                            name: 'ახალი დამატებული',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                            imageAlt:
+                                'Drawstring top with elastic loop closure and textured interior padding.'
+                        },
+                        {
+                            name: 'Artwork Tees',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                            imageAlt:
+                                'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.'
+                        }
+                    ],
+                    sections: [
+                        {
+                            id: 'clothing',
+                            name: 'Clothing',
+                            items: [
+                                { name: 'Tops', href: '#' },
+                                { name: 'Pants', href: '#' },
+                                { name: 'Sweaters', href: '#' },
+                                { name: 'T-Shirts', href: '#' },
+                                { name: 'Jackets', href: '#' },
+                                { name: 'Activewear', href: '#' },
+                                { name: 'Browse All', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'accessories',
+                            name: 'Accessories',
+                            items: [
+                                { name: 'Watches', href: '#' },
+                                { name: 'Wallets', href: '#' },
+                                { name: 'Bags', href: '#' },
+                                { name: 'Sunglasses', href: '#' },
+                                { name: 'Hats', href: '#' },
+                                { name: 'Belts', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'brands',
+                            name: 'Brands',
+                            items: [
+                                { name: 'Re-Arranged', href: '#' },
+                                { name: 'Counterfeit', href: '#' },
+                                { name: 'Full Nelson', href: '#' },
+                                { name: 'My Way', href: '#' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'ახალი დამატებული',
+            slug: '',
+            categories: [
+                {
+                    id: 'men',
+                    name: 'კაცი',
+                    featured: [
+                        {
+                            name: 'ახალი დამატებული',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                            imageAlt:
+                                'Drawstring top with elastic loop closure and textured interior padding.'
+                        },
+                        {
+                            name: 'Artwork Tees',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                            imageAlt:
+                                'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.'
+                        }
+                    ],
+                    sections: [
+                        {
+                            id: 'clothing',
+                            name: 'Clothing',
+                            items: [
+                                { name: 'Tops', href: '#' },
+                                { name: 'Pants', href: '#' },
+                                { name: 'Sweaters', href: '#' },
+                                { name: 'T-Shirts', href: '#' },
+                                { name: 'Jackets', href: '#' },
+                                { name: 'Activewear', href: '#' },
+                                { name: 'Browse All', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'accessories',
+                            name: 'Accessories',
+                            items: [
+                                { name: 'Watches', href: '#' },
+                                { name: 'Wallets', href: '#' },
+                                { name: 'Bags', href: '#' },
+                                { name: 'Sunglasses', href: '#' },
+                                { name: 'Hats', href: '#' },
+                                { name: 'Belts', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'brands',
+                            name: 'Brands',
+                            items: [
+                                { name: 'Re-Arranged', href: '#' },
+                                { name: 'Counterfeit', href: '#' },
+                                { name: 'Full Nelson', href: '#' },
+                                { name: 'My Way', href: '#' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'ტექნიკა',
+            slug: '',
+            categories: [
+                {
+                    id: 'men',
+                    name: 'კაცი',
+                    featured: [
+                        {
+                            name: 'ახალი დამატებული',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                            imageAlt:
+                                'Drawstring top with elastic loop closure and textured interior padding.'
+                        },
+                        {
+                            name: 'Artwork Tees',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                            imageAlt:
+                                'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.'
+                        }
+                    ],
+                    sections: [
+                        {
+                            id: 'clothing',
+                            name: 'Clothing',
+                            items: [
+                                { name: 'Tops', href: '#' },
+                                { name: 'Pants', href: '#' },
+                                { name: 'Sweaters', href: '#' },
+                                { name: 'T-Shirts', href: '#' },
+                                { name: 'Jackets', href: '#' },
+                                { name: 'Activewear', href: '#' },
+                                { name: 'Browse All', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'accessories',
+                            name: 'Accessories',
+                            items: [
+                                { name: 'Watches', href: '#' },
+                                { name: 'Wallets', href: '#' },
+                                { name: 'Bags', href: '#' },
+                                { name: 'Sunglasses', href: '#' },
+                                { name: 'Hats', href: '#' },
+                                { name: 'Belts', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'brands',
+                            name: 'Brands',
+                            items: [
+                                { name: 'Re-Arranged', href: '#' },
+                                { name: 'Counterfeit', href: '#' },
+                                { name: 'Full Nelson', href: '#' },
+                                { name: 'My Way', href: '#' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'ტანსაცმელი',
+            slug: '',
+            categories: [
+                {
+                    id: 'men',
+                    name: 'კაცი',
+                    featured: [
+                        {
+                            name: 'ახალი დამატებული',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                            imageAlt:
+                                'Drawstring top with elastic loop closure and textured interior padding.'
+                        },
+                        {
+                            name: 'Artwork Tees',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                            imageAlt:
+                                'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.'
+                        }
+                    ],
+                    sections: [
+                        {
+                            id: 'clothing',
+                            name: 'Clothing',
+                            items: [
+                                { name: 'Tops', href: '#' },
+                                { name: 'Pants', href: '#' },
+                                { name: 'Sweaters', href: '#' },
+                                { name: 'T-Shirts', href: '#' },
+                                { name: 'Jackets', href: '#' },
+                                { name: 'Activewear', href: '#' },
+                                { name: 'Browse All', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'accessories',
+                            name: 'Accessories',
+                            items: [
+                                { name: 'Watches', href: '#' },
+                                { name: 'Wallets', href: '#' },
+                                { name: 'Bags', href: '#' },
+                                { name: 'Sunglasses', href: '#' },
+                                { name: 'Hats', href: '#' },
+                                { name: 'Belts', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'brands',
+                            name: 'Brands',
+                            items: [
+                                { name: 'Re-Arranged', href: '#' },
+                                { name: 'Counterfeit', href: '#' },
+                                { name: 'Full Nelson', href: '#' },
+                                { name: 'My Way', href: '#' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'აქსესუარები',
+            slug: '',
+            categories: [
+                {
+                    id: 'men',
+                    name: 'კაცი',
+                    featured: [
+                        {
+                            name: 'ახალი დამატებული',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                            imageAlt:
+                                'Drawstring top with elastic loop closure and textured interior padding.'
+                        },
+                        {
+                            name: 'Artwork Tees',
+                            href: '#',
+                            imageSrc:
+                                'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                            imageAlt:
+                                'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.'
+                        }
+                    ],
+                    sections: [
+                        {
+                            id: 'clothing',
+                            name: 'Clothing',
+                            items: [
+                                { name: 'Tops', href: '#' },
+                                { name: 'Pants', href: '#' },
+                                { name: 'Sweaters', href: '#' },
+                                { name: 'T-Shirts', href: '#' },
+                                { name: 'Jackets', href: '#' },
+                                { name: 'Activewear', href: '#' },
+                                { name: 'Browse All', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'accessories',
+                            name: 'Accessories',
+                            items: [
+                                { name: 'Watches', href: '#' },
+                                { name: 'Wallets', href: '#' },
+                                { name: 'Bags', href: '#' },
+                                { name: 'Sunglasses', href: '#' },
+                                { name: 'Hats', href: '#' },
+                                { name: 'Belts', href: '#' }
+                            ]
+                        },
+                        {
+                            id: 'brands',
+                            name: 'Brands',
+                            items: [
+                                { name: 'Re-Arranged', href: '#' },
+                                { name: 'Counterfeit', href: '#' },
+                                { name: 'Full Nelson', href: '#' },
+                                { name: 'My Way', href: '#' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    leftNavigationItems: [
+        { title: 'მაღაზიები', slug: '' },
+        { title: 'კონტაქტი', slug: '' }
+        // { title: 'წესები/პირობები', slug: '' }
+    ]
+};
+
+export const strings = {
+    topBar: {
+        text: 'მიიღე უფასო მიწოდება თბილისის მასშტაბით'
+    }
 };

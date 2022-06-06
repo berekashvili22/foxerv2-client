@@ -14,35 +14,19 @@ export default function Home() {
 
     return (
         <React.Fragment>
-            <>
-                <Swiper pagination={true} modules={[Pagination]} className="container mySwiper">
+            {/* <Swiper pagination={true} modules={[Pagination]} className="container mySwiper">
                     {images.map((image, index) => (
                         <SwiperSlide key={index}>
                             <div
                                 className="bg-center bg-no-repeat bg-cover border border-gray-300 border-solid h-96"
-                                style={{ backgroundImage: `url(${image})` }}>
+                                style={{ backgroundImage: `url(${image})` }}
+                            >
                                 <img className="w-full" alt="" />
                             </div>
                         </SwiperSlide>
                     ))}
-                </Swiper>
-                {/* <Swiper
-                    slidesPerView={'3'}
-                    spaceBetween={30}
-                    pagination={{
-                        clickable: true
-                    }}
-                    modules={[Pagination]}
-                    className="mySwiper">
-                    {images.map((image, index) => (
-                        <SwiperSlide key={index}>
-                            <div className="border border-gray-500 border-solid h-96">
-                                <img className="max-w-full" src={image} alt="" />
-                            </div>
-                        </SwiperSlide>
-                    ))}
                 </Swiper> */}
-            </>
+
             <section className="text-gray-600 body-font">
                 <div className="container flex flex-col items-center px-5 py-24 mx-auto md:flex-row">
                     <div className="flex flex-col items-center mb-16 text-center lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:items-start md:text-left md:mb-0">
@@ -212,7 +196,7 @@ export default function Home() {
                         </h1>
                         <p className="mx-auto text-base leading-relaxed lg:pl-6 lg:w-2/3">
                             Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-                            gentrify, subway tile poke farm-to-table. Franzen you probably haven't
+                            gentrify, subway tile poke farm-to-table. Franzen you probably haven t
                             heard of them man bun deep jianbing selfies heirloom.
                         </p>
                     </div>
